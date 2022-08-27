@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  
+
+<body>
+  <script>
+    function setup() {
+      var lis = document.querySelectorAll('ul li');
+      var lis2 = document.querySelector('ul');
+      
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].addEventListener('click', function(e) {
+          // Write your code here
+            lis2.prepend(lis[i].innerHTML);
+            console.log(lis)
+            console.log(lis.outerHTML)
+        });
+      }
+    }
+    
+    // Example case. 
+    document.body.innerHTML = `
+    <ul>
+      <li>A</li>
+      <li>B</li>
+      <li>C</li>
+    </ul>`;
+    
+    setup();
+    
+    document.getElementsByTagName("li")[1].click();
+    console.log(document.body.innerHTML);
+  </script>
+  
+</body>
+</html>
