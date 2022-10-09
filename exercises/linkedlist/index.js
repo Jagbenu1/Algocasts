@@ -15,7 +15,7 @@ class LinkedList {
     }
 
     insertFirst(data) { 
-        this.head = new Node(data, this.head);
+        this.insertAt(data, 0);
     }
 
     size(){
@@ -29,21 +29,22 @@ class LinkedList {
     }
 
     getFirst(){
-        return this.head;
+        return this.getAt(0);
     }
 
     getLast(){
-        if(!this.head){
-            return null;
-        }
+        // if(!this.head){
+        //     return null;
+        // }
 
-        let node = this.head;
-        while(node){
-            if(!node.next){
-                return node;
-            }
-            node = node.next
-        }
+        // let node = this.head;
+        // while(node){
+        //     if(!node.next){
+        //         return node;
+        //     }
+        //     node = node.next
+        // }
+        return this.getAt(this.size() - 1)
     }
 
     clear(){
@@ -87,6 +88,7 @@ class LinkedList {
             //The chain is empty.
             this.head = new Node(data)
         }
+        // return this.insertAt(data, (this.size() - 1))
     }
 
     getAt(index){
@@ -121,7 +123,40 @@ class LinkedList {
     }
 
     insertAt(data, index){
+        if(!this.head){
+            return this.head = new Node(data);
+        }
 
+        if(index === 0){
+            this.head = new Node(data, this.head);
+            return;
+        }
+        const previous = this.getAt(index-1) || this.getLast();
+        const node = new Node(data, previous.next);
+        previous.next = node;
+
+        // if(!previous || !previous.next){
+        //     this.head = new Node(data, this.head);
+        //     return;
+        // }
+
+        // previous.next = new Node(data, previous.next);
+    }
+
+    forEach(fn) {
+        let head = this.head;
+        while(head) {
+          fn(head);
+          head = head.next;
+        }
+      }
+
+    *[Symbol.iterator](){
+        let node = this.head;
+        while(node){
+            yield node;
+            node= node.next;
+        }
     }
 }
 
